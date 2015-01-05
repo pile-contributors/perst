@@ -128,4 +128,39 @@
 #   endif
 #endif
 
+/**
+ * @def PERST_STRING
+ * @brief String type that is used in this pile.
+ */
+#ifdef PILES_HAVE_QT
+#include <QString>
+#define PERST_STRING QString
+#else
+#define PERST_STRING std::string
+#endif // PILES_HAVE_QT
+
+/**
+ * @def PERST_SLIST
+ * @brief String list type that is used in this pile.
+ */
+#ifdef PILES_HAVE_QT
+#include <QStringList>
+#define PERST_SLIST QStringList
+#else
+#define PERST_SLIST std::list<std::string>
+#endif // PILES_HAVE_QT
+
+
+/**
+ * @def PERST_WITH_QSETTINGS
+ * @brief Use QSettings backend as an implementation.
+ */
+#cmakedefine PERST_WITH_QSETTINGS
+
+/**
+ * @def PERST_WITH_QXML
+ * @brief Use Qt provided XML backend as an implementation.
+ */
+#cmakedefine PERST_WITH_QXML
+
 #endif // GUARD_PERST_CONFIG_H_INCLUDE
