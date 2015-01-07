@@ -34,6 +34,19 @@ struct PerStProvider {
     {}
 };
 
+
+PerStFactory::PerStFactory() :
+    providers_()
+{}
+
+PerStFactory::PerStFactory(const PerStFactory & other) :
+    providers_(other.providers_)
+{}
+
+PerStFactory::~PerStFactory()
+{}
+
+
 /* ------------------------------------------------------------------------- */
 /**
  * Creates the singleton.
@@ -59,6 +72,7 @@ void PerStFactory::end()
             delete *i;
         }
         delete singleton_;
+        singleton_ = NULL;
     }
 }
 /* ========================================================================= */
@@ -86,11 +100,11 @@ PerStProvider *PerStFactory::find (const PERST_STRING &name)
     PERST_TRACE_ENTRY;
 
     std::list<PerStProvider*>::iterator i =
-            singleton_->providers_.begin();
+            providers_.begin();
     std::list<PerStProvider*>::iterator i_end =
-            singleton_->providers_.end();
+            providers_.end();
 
-    if (name.size() > 0)  {
+    if ((name.size() > 0) && (providers_.size () > 0))  {
         for(; i != i_end; ++i) {
             result_tmp = *i;
             if (result_tmp->name_ == name) {
@@ -246,22 +260,24 @@ bool PerStFactory::forEachProvider (
     PERST_TRACE_ENTRY;
     autocreate();
 
-    PerStProvider * prov = NULL;
-    std::list<PerStProvider*>::iterator i =
-            singleton_->providers_.begin();
-    std::list<PerStProvider*>::iterator i_end =
-            singleton_->providers_.end();
     int index = 0;
-    for(; i != i_end; ++i) {
-        prov = *i;
-        result = kb (
-                    index,
-                    prov->name_,
-                    prov->kb_,
-                    prov->user_data_,
-                    for_each_user_data);
-        if (!result) break;
-        index++;
+    if (singleton_->providers_.size () > 0)  {
+        PerStProvider * prov = NULL;
+        std::list<PerStProvider*>::iterator i =
+                singleton_->providers_.begin();
+        std::list<PerStProvider*>::iterator i_end =
+                singleton_->providers_.end();
+        for(; i != i_end; ++i) {
+            prov = *i;
+            result = kb (
+                        index,
+                        prov->name_,
+                        prov->kb_,
+                        prov->user_data_,
+                        for_each_user_data);
+            if (!result) break;
+            index++;
+        }
     }
 
     for(;;) {

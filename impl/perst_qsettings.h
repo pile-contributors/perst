@@ -30,8 +30,7 @@ public:
     //! Default constructor.
     PerStQSettings (
             const PERST_STRING & file,
-            Mode md
-            );
+            Mode md);
 
     //! Destructor.
     virtual ~PerStQSettings();
@@ -120,6 +119,8 @@ public:
             const PERST_STRING & name,
             double value);
 
+private:
+    QSettings backend_;
 };
 
 #endif // PERST_WITH_QSETTINGS

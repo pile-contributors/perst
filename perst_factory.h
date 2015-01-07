@@ -35,9 +35,9 @@ public:
             void * for_each_user_data);
 
 private:
-    PerStFactory() {}
-    PerStFactory(const PerStFactory &) {}
-    ~PerStFactory() {}
+    PerStFactory();
+    PerStFactory(const PerStFactory & other);
+    ~PerStFactory();
 
 public:
 
@@ -85,7 +85,8 @@ private:
     autocreate();
 
     //! locate provider
-    PerStProvider * find (
+    PerStProvider *
+    find (
             const PERST_STRING & name);
 
     std::list<PerStProvider*> providers_; /**< The list of providers. */
