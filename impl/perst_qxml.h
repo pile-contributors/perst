@@ -37,7 +37,8 @@ public:
 
     //! Ends a group; internal state is altered.
     virtual bool
-    endGroup ();
+    endGroup (
+            const PERST_STRING & name = "");
 
     //! Starts writing an array; internal state is altered.
     virtual bool
@@ -52,7 +53,8 @@ public:
 
     //! Ends an array; internal state is altered.
     virtual bool
-    endArray ();
+    endArray (
+            const PERST_STRING & name = "");
 
     //! Set current index of an array.
     virtual bool

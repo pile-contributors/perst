@@ -167,16 +167,48 @@ bool PerSt::beginGroupInternal (const PERST_STRING & name)
 {
     if (name.length () == 0) return false;
 
+    current_group_name_ = name;
+    current_group_path_.push_back (name);
+    array_index_ = 0;
+
+    return true;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
 /**
- * @return false if we're at the root, true otherwise.
+ * @return false if we're at the root or the name does not match, true otherwise.
  */
-bool PerSt::endGroupInternal ()
+bool PerSt::endGroupInternal (const PERST_STRING &name)
 {
     if (current_group_path_.size() == 0) return false;
+    if (name.size() > 0) {
+        if (name != current_group_name_) {
+            return false;
+        }
+    }
+
+    current_group_path_.pop_back();
+    if (current_group_path_.empty ()) {
+        current_group_name_.clear();
+    } else {
+        current_group_name_ = current_group_path_.back();
+    }
+
+    return true;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+/**
+ * @return false if no group is defined or name is empty.
+ */
+bool PerSt::preSaveValue (const PERST_STRING & name)
+{
+    if (name.length () == 0) return false;
+    if (current_group_name_.size() == 0) return false;
+
+    return true;
 }
 /* ========================================================================= */
 

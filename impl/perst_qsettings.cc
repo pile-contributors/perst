@@ -10,6 +10,8 @@
 #include "perst_qsettings.h"
 #include "../perst-private.h"
 
+#include <QDebug>
+
 /**
  * @class PerStQSettings
  *
@@ -27,7 +29,6 @@ PerStQSettings::PerStQSettings(const PERST_STRING & file, Mode md) :
     backend_(file, md == MODE_INI ? QSettings::IniFormat : QSettings::NativeFormat)
 {
     PERST_TRACE_ENTRY;
-
     PERST_TRACE_EXIT;
 }
 /* ========================================================================= */
@@ -39,7 +40,6 @@ PerStQSettings::PerStQSettings(const PERST_STRING & file, Mode md) :
 PerStQSettings::~PerStQSettings()
 {
     PERST_TRACE_ENTRY;
-
     PERST_TRACE_EXIT;
 }
 /* ========================================================================= */
@@ -47,7 +47,7 @@ PerStQSettings::~PerStQSettings()
 /* ------------------------------------------------------------------------- */
 bool PerStQSettings::beginGroup (const PERST_STRING &name)
 {
-    bool b_res = beginGroupInternal(name);
+    bool b_res = beginGroupInternal (name);
     if (b_res) {
         backend_.beginGroup (name);
     }
@@ -56,9 +56,9 @@ bool PerStQSettings::beginGroup (const PERST_STRING &name)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQSettings::endGroup()
+bool PerStQSettings::endGroup(const PERST_STRING &name)
 {
-    bool b_res = endGroupInternal ();
+    bool b_res = endGroupInternal (name);
     if (b_res) {
         backend_.endGroup ();
     }
@@ -91,9 +91,9 @@ int PerStQSettings::beginReadArray(const PERST_STRING &name)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQSettings::endArray()
+bool PerStQSettings::endArray(const PERST_STRING &name)
 {
-    bool b_res = endGroupInternal ();
+    bool b_res = endGroupInternal (name);
     if (b_res) {
         backend_.endArray ();
     }
@@ -157,8 +157,9 @@ double PerStQSettings::valueDbl(const PERST_STRING &name)
 bool PerStQSettings::setValue(
         const PERST_STRING &name, const PERST_STRING & value)
 {
+    if (!preSaveValue(name)) return false;
     backend_.setValue (name, value);
-    return true;
+    return backend_.status () == QSettings::NoError;
 }
 /* ========================================================================= */
 
@@ -166,23 +167,26 @@ bool PerStQSettings::setValue(
 bool PerStQSettings::setValue (
         const PERST_STRING &name, const PERST_SLIST &value)
 {
+    if (!preSaveValue(name)) return false;
     backend_.setValue (name, value);
-    return true;
+    return backend_.status () == QSettings::NoError;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
 bool PerStQSettings::setValue(const PERST_STRING &name, int64_t value)
 {
+    if (!preSaveValue(name)) return false;
     backend_.setValue (name, value);
-    return true;
+    return backend_.status () == QSettings::NoError;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
 bool PerStQSettings::setValue(const PERST_STRING &name, double value)
 {
+    if (!preSaveValue(name)) return false;
     backend_.setValue (name, value);
-    return true;
+    return backend_.status () == QSettings::NoError;
 }
 /* ========================================================================= */

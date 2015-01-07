@@ -66,7 +66,8 @@ public:
 
     //! Ends a group; internal state is altered.
     virtual bool
-    endGroup () = 0;
+    endGroup (
+            const PERST_STRING & name = "") = 0;
 
     //! Starts writing an array; internal state is altered.
     virtual bool
@@ -81,7 +82,8 @@ public:
 
     //! Ends an array; internal state is altered.
     virtual bool
-    endArray () = 0;
+    endArray (
+            const PERST_STRING & name = "") = 0;
 
     //! Get current index of an array.
     int
@@ -171,7 +173,13 @@ protected:
 
     //! Alters internal state by removing last group name.
     bool
-    endGroupInternal ();
+    endGroupInternal (
+            const PERST_STRING &name = "");
+
+    //! Makes sure that a value can be saved.
+    bool
+    preSaveValue (
+            const PERST_STRING & name);
 
 private:
     PERST_SLIST current_group_path_; /**< List of elements; last one is current group.*/

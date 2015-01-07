@@ -50,7 +50,7 @@ bool PerStQXml::beginGroup(const PERST_STRING &name)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQXml::endGroup()
+bool PerStQXml::endGroup(const PERST_STRING &name)
 {
 
 }
@@ -71,7 +71,7 @@ int PerStQXml::beginReadArray(const PERST_STRING &name)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQXml::endArray()
+bool PerStQXml::endArray(const PERST_STRING &name)
 {
 
 }
