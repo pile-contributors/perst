@@ -29,6 +29,7 @@ PerStQSettings::PerStQSettings(const PERST_STRING & file, Mode md) :
     backend_(file, md == MODE_INI ? QSettings::IniFormat : QSettings::NativeFormat)
 {
     PERST_TRACE_ENTRY;
+    setLocation (file);
     PERST_TRACE_EXIT;
 }
 /* ========================================================================= */

@@ -25,7 +25,7 @@ PerStQXml::PerStQXml(const PERST_STRING & file) :
     PerSt()
 {
     PERST_TRACE_ENTRY;
-
+    setLocation (file);
     PERST_TRACE_EXIT;
 }
 /* ========================================================================= */

@@ -59,6 +59,11 @@ public:
     //! Destructor.
     virtual ~PerSt();
 
+    //! Storage location
+    virtual PERST_STRING location () {
+        return location_;
+    }
+
     //! Starts a group; internal state is altered.
     virtual bool
     beginGroup (
@@ -181,10 +186,19 @@ protected:
     preSaveValue (
             const PERST_STRING & name);
 
+
+    //! Storage location
+    virtual void setLocation (
+            const PERST_STRING & value) {
+        location_ = value;
+    }
+
 private:
+    PERST_STRING location_; /**< Location of the storage (may be a file). */
     PERST_SLIST current_group_path_; /**< List of elements; last one is current group.*/
     PERST_STRING current_group_name_; /**< Current group's name. */
-    int array_index_;
+    int array_index_; /**< current index in the array, if any */
+
 };
 
 #endif // GUARD_PERST_H_INCLUDE

@@ -25,6 +25,7 @@
  * Only the implementation is allowed to use the constructor.
  */
 PerSt::PerSt() :
+    location_(),
     current_group_path_(),
     current_group_name_()
 {
