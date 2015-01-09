@@ -11,7 +11,7 @@
 #define GUARD_PERST_H_INCLUDE
 
 #include <perst/perst-config.h>
-#include <inttypes.h>
+#include <stdint.h>
 
 //! Interface class for persistent storage
 class PERST_EXPORT PerSt {

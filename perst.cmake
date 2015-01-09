@@ -9,7 +9,7 @@ include(pile_support)
 
 # initialize this module
 macro    (perstInit
-          ref_cnt_use_mode)
+          perst_use_mode)
 
     # default name
     if (NOT PERST_INIT_NAME)
@@ -54,9 +54,9 @@ macro    (perstInit
         "${PERST_INIT_NAME}"
         "0;0;1;d"
         "ON"
-        "${ref_cnt_use_mode}"
+        "${perst_use_mode}"
         ""
-        "category1"
-        "tag1;tag2")
+        "basics"
+        "storage;persistent;settings;file")
 
 endmacro ()

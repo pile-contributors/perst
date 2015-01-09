@@ -105,7 +105,9 @@ bool PerStQSettings::endArray(const PERST_STRING &name)
 /* ------------------------------------------------------------------------- */
 bool PerStQSettings::setArrayIndex(int index)
 {
+    if (index < 0) return false;
     backend_.setArrayIndex (index);
+    return true;
 }
 /* ========================================================================= */
 
