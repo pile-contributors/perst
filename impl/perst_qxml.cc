@@ -131,6 +131,14 @@ int64_t PerStQXml::valueInt (const PERST_STRING &name)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
+uint64_t PerStQXml::valueUInt (const PERST_STRING &name)
+{
+    //! @todo
+    return 0;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
 double PerStQXml::valueDbl (const PERST_STRING &name)
 {
     //! @todo
@@ -158,6 +166,14 @@ bool PerStQXml::setValue (
 
 /* ------------------------------------------------------------------------- */
 bool PerStQXml::setValue(const PERST_STRING &name, int64_t value)
+{
+    //! @todo
+    return true;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+bool PerStQXml::setValue(const PERST_STRING &name, uint64_t value)
 {
     //! @todo
     return true;

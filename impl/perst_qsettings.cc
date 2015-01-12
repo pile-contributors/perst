@@ -150,6 +150,13 @@ int64_t PerStQSettings::valueInt (const PERST_STRING &name)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
+uint64_t PerStQSettings::valueUInt (const PERST_STRING &name)
+{
+    return backend_.value (name).toULongLong ();
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
 double PerStQSettings::valueDbl(const PERST_STRING &name)
 {
     return backend_.value (name).toDouble ();
@@ -177,7 +184,7 @@ bool PerStQSettings::setValue (
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQSettings::setValue(const PERST_STRING &name, int64_t value)
+bool PerStQSettings::setValue (const PERST_STRING &name, int64_t value)
 {
     if (!preSaveValue(name)) return false;
     backend_.setValue (name, value);
@@ -186,7 +193,16 @@ bool PerStQSettings::setValue(const PERST_STRING &name, int64_t value)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQSettings::setValue(const PERST_STRING &name, double value)
+bool PerStQSettings::setValue (const PERST_STRING &name, uint64_t value)
+{
+    if (!preSaveValue(name)) return false;
+    backend_.setValue (name, value);
+    return backend_.status () == QSettings::NoError;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+bool PerStQSettings::setValue (const PERST_STRING &name, double value)
 {
     if (!preSaveValue(name)) return false;
     backend_.setValue (name, value);

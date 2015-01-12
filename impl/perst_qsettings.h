@@ -92,6 +92,11 @@ public:
     valueInt (
             const PERST_STRING & name);
 
+    //! Get the integer value for a key; the value type MUST be integer.
+    virtual uint64_t
+    valueUInt (
+            const PERST_STRING & name);
+
     //! Get the real value for a key; the value type MUST be real.
     virtual double
     valueDbl (
@@ -114,6 +119,12 @@ public:
     setValue (
             const PERST_STRING & name,
             int64_t value);
+
+    //! Set the integer value for a key.
+    virtual bool
+    setValue (
+            const PERST_STRING & name,
+            uint64_t value);
 
     //! Set the real value for a key.
     virtual bool
