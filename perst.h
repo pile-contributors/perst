@@ -218,7 +218,7 @@ private:
     PERST_SLIST current_group_path_; /**< List of elements; last one is current group.*/
     PERST_STRING current_group_name_; /**< Current group's name. */
     int array_index_; /**< current index in the array, if any */
-
+    std::list<int> array_indices_; /**< stores nested indices */
 };
 
 #endif // GUARD_PERST_H_INCLUDE
