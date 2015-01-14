@@ -73,7 +73,9 @@ bool PerStQSettings::beginWriteArray (
 {
     bool b_res = beginGroupInternal (name);
     if (b_res) {
+        //b_res = setArrayIndexInternal (0);
         backend_.beginWriteArray (name, predicted_count);
+        b_res = b_res & setArrayIndex (0);
     }
     return b_res;
 }
@@ -85,9 +87,10 @@ int PerStQSettings::beginReadArray (const PERST_STRING &name)
     int result = -1;
     bool b_res = beginGroupInternal (name);
     if (b_res) {
-        b_res = setArrayIndexInternal (0);
+        //b_res = setArrayIndexInternal (0);
         if (b_res) {
             result = backend_.beginReadArray (name);
+            b_res = b_res & setArrayIndex (0);
         }
     }
     return result;

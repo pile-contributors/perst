@@ -168,8 +168,13 @@ PerSt::~PerSt()
 bool PerSt::setArrayIndexInternal (int value)
 {
     if (value < 0) return false;
+    if (array_index_ >= 0) {
+        endGroupInternal (
+                    PERST_STRING::number (array_index_));
+    }
+    bool b_ret = beginGroupInternal (PERST_STRING::number (value));
     array_index_ = value;
-    return beginGroupInternal (PERST_STRING::number (value));
+    return b_ret;
 }
 /* ========================================================================= */
 
@@ -181,7 +186,7 @@ bool PerSt::setArrayIndexInternal (int value)
  */
 bool PerSt::endArrayInternal (const PERST_STRING & name)
 {
-    if (array_index_ >= 0) return false;
+    if (array_index_ < 0) return false;
     bool b_ret = endGroupInternal (PERST_STRING::number (array_index_));
     array_index_ = -1;
     b_ret = b_ret & endGroupInternal (name);
@@ -199,7 +204,7 @@ bool PerSt::beginGroupInternal (const PERST_STRING & name)
 
     current_group_name_ = name;
     current_group_path_.push_back (name);
-    array_index_ = 0;
+    array_index_ = -1;
 
     return true;
 }
