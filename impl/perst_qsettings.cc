@@ -80,21 +80,24 @@ bool PerStQSettings::beginWriteArray (
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-int PerStQSettings::beginReadArray(const PERST_STRING &name)
+int PerStQSettings::beginReadArray (const PERST_STRING &name)
 {
     int result = -1;
     bool b_res = beginGroupInternal (name);
     if (b_res) {
-        result = backend_.beginReadArray (name);
+        b_res = setArrayIndexInternal (0);
+        if (b_res) {
+            result = backend_.beginReadArray (name);
+        }
     }
     return result;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQSettings::endArray(const PERST_STRING &name)
+bool PerStQSettings::endArray (const PERST_STRING &name)
 {
-    bool b_res = endGroupInternal (name);
+    bool b_res = endArrayInternal (name);
     if (b_res) {
         backend_.endArray ();
     }
@@ -103,11 +106,13 @@ bool PerStQSettings::endArray(const PERST_STRING &name)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool PerStQSettings::setArrayIndex(int index)
+bool PerStQSettings::setArrayIndex (int index)
 {
     if (index < 0) return false;
-    backend_.setArrayIndex (index);
-    return true;
+    bool b_ret = setArrayIndexInternal (index);
+    if (b_ret)
+        backend_.setArrayIndex (index);
+    return b_ret;
 }
 /* ========================================================================= */
 

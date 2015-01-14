@@ -159,6 +159,35 @@ PerSt::~PerSt()
  */
 /* ========================================================================= */
 
+/* ------------------------------------------------------------------------- */
+/**
+ * The method begins a new group with the index as name.
+ *
+ * @return false if the index is negative.
+ */
+bool PerSt::setArrayIndexInternal (int value)
+{
+    if (value < 0) return false;
+    array_index_ = value;
+    return beginGroupInternal (PERST_STRING::number (value));
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+/**
+ * The method ends the group with the index as name.
+ *
+ * @return false if we're not inside an array.
+ */
+bool PerSt::endArrayInternal (const PERST_STRING & name)
+{
+    if (array_index_ >= 0) return false;
+    bool b_ret = endGroupInternal (PERST_STRING::number (array_index_));
+    array_index_ = -1;
+    b_ret = b_ret & endGroupInternal (name);
+    return b_ret;
+}
+/* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
 /**

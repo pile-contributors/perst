@@ -184,6 +184,15 @@ protected:
 
     //! Alters internal state by appending the group name.
     bool
+    setArrayIndexInternal (
+            int value);
+
+    //! Alters internal state by removing last group name.
+    bool endArrayInternal (
+            const PERST_STRING & name);
+
+    //! Alters internal state by appending the group name.
+    bool
     beginGroupInternal (
             const PERST_STRING & name);
 
