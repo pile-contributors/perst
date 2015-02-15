@@ -195,7 +195,7 @@ bool PerStQSettings::setValue (
 bool PerStQSettings::setValue (const PERST_STRING &name, int64_t value)
 {
     if (!preSaveValue(name)) return false;
-    backend_.setValue (name, value);
+    backend_.setValue (name, (qint64)value);
     return backend_.status () == QSettings::NoError;
 }
 /* ========================================================================= */
@@ -204,7 +204,7 @@ bool PerStQSettings::setValue (const PERST_STRING &name, int64_t value)
 bool PerStQSettings::setValue (const PERST_STRING &name, uint64_t value)
 {
     if (!preSaveValue(name)) return false;
-    backend_.setValue (name, value);
+    backend_.setValue (name, (quint64)value);
     return backend_.status () == QSettings::NoError;
 }
 /* ========================================================================= */
