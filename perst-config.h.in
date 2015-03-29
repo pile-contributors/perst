@@ -150,6 +150,16 @@
 #define PERST_SLIST std::list<std::string>
 #endif // PILES_HAVE_QT
 
+/**
+ * @def PERST_STRING_TO_TMPC
+ * @brief Convert the string to 8bit representation.
+ */
+#ifdef PILES_HAVE_QT
+#define PERST_STRING_TO_TMPC(__s__) __s__.toLatin1().constData()
+#else
+#define PERST_STRING std::string(__s__) __s__.c_str()
+#endif // PILES_HAVE_QT
+
 
 /**
  * @def PERST_WITH_QSETTINGS
