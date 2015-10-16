@@ -149,6 +149,53 @@ public:
     valueDbl (
             const PERST_STRING & name) = 0;
 
+
+    //! Get the string value for a key; the value type MUST be string.
+    inline PERST_STRING
+    valueS (
+            const PERST_STRING & name,
+            const PERST_STRING & default_val) {
+        if (hasKey (name)) return valueS (name);
+        else return default_val;
+    }
+
+    //! Get the string list for a key; the value type MUST be an array of strings.
+    inline PERST_SLIST
+    valueSList (
+            const PERST_STRING & name,
+            const PERST_SLIST & default_val) {
+        if (hasKey (name)) return valueSList (name);
+        else return default_val;
+    }
+
+    //! Get the integer value for a key; the value type MUST be integer.
+    inline int64_t
+    valueInt (
+            const PERST_STRING & name,
+            int64_t default_val) {
+        if (hasKey (name)) return valueInt (name);
+        else return default_val;
+    }
+
+    //! Get the integer value for a key; the value type MUST be integer.
+    inline uint64_t
+    valueUInt (
+            const PERST_STRING & name,
+            uint64_t default_val) {
+        if (hasKey (name)) return valueUInt (name);
+        else return default_val;
+    }
+
+    //! Get the real value for a key; the value type MUST be real.
+    inline double
+    valueDbl (
+            const PERST_STRING & name,
+            double default_val) {
+        if (hasKey (name)) return valueDbl (name);
+        else return default_val;
+    }
+
+
     //! Set the string value for a key.
     virtual bool
     setValue (
@@ -172,6 +219,14 @@ public:
     setValue (
             const PERST_STRING & name,
             uint64_t value) = 0;
+
+    //! Set the integer value for a key.
+    virtual bool
+    setValue (
+            const PERST_STRING & name,
+            int value) {
+        return setValue (name, (int64_t)value);
+    }
 
     //! Set the real value for a key.
     virtual bool
@@ -214,8 +269,10 @@ protected:
     }
 
 private:
-    PERST_STRING location_; /**< Location of the storage (may be a file). */
-    PERST_SLIST current_group_path_; /**< List of elements; last one is current group.*/
+    PERST_STRING location_; /**< Location of the
+                                 storage (may be a file). */
+    PERST_SLIST current_group_path_; /**< List of elements;
+                                          last one is current group.*/
     PERST_STRING current_group_name_; /**< Current group's name. */
     int array_index_; /**< current index in the array, if any */
     std::list<int> array_indices_; /**< stores nested indices */
