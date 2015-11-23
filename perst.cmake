@@ -27,6 +27,7 @@ macro    (perstInit
     # compose the list of headers and sources
     set(PERST_HEADERS
         "perst.h"
+        "perst_interface.h"
         "perst_factory.h")
     set(PERST_SOURCES
         "perst.cc"
