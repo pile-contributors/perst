@@ -1,6 +1,6 @@
 
 # enable/disable cmake debug messages related to this pile
-set (PERST_DEBUG_MSG ON)
+set (PERST_DEBUG_MSG OFF)
 
 # make sure support code is present; no harm
 # in including it twice; the user, however, should have used
@@ -27,6 +27,7 @@ macro    (perstInit
     # compose the list of headers and sources
     set(PERST_HEADERS
         "perst.h"
+        "perst_interface.h"
         "perst_factory.h")
     set(PERST_SOURCES
         "perst.cc"

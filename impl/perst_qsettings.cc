@@ -15,7 +15,9 @@
 /**
  * @class PerStQSettings
  *
- *
+ * @warning Avoid the word `general`, `General` and GENERAL` as name of the
+ * group. If you don't, take note that it will always be spelled
+ * `General` on reload (!) no matter the initial setting.
  */
 const PERST_STRING PerStQSettings::REGS = "registry";
 const PERST_STRING PerStQSettings::INI = "config";
@@ -30,6 +32,17 @@ PerStQSettings::PerStQSettings(const PERST_STRING & file, Mode md) :
 {
     PERST_TRACE_ENTRY;
     setLocation (file);
+
+#ifdef PERST_DEBUG
+    printf ("Initial settings content for PerSt file %s\n", PERST_STRING_TO_TMPC(file));
+    foreach(const QString & skey, backend_.allKeys()) {
+        printf ("   - %s = %s\n",
+                PERST_STRING_TO_TMPC(skey),
+                PERST_STRING_TO_TMPC(backend_.value(skey).toString()));
+    }
+    printf ("End of settings content for PerSt file %s\n", PERST_STRING_TO_TMPC(file));
+#endif
+
     PERST_TRACE_EXIT;
 }
 /* ========================================================================= */
@@ -41,6 +54,19 @@ PerStQSettings::PerStQSettings(const PERST_STRING & file, Mode md) :
 PerStQSettings::~PerStQSettings()
 {
     PERST_TRACE_ENTRY;
+
+    backend_.sync ();
+#ifdef PERST_DEBUG
+    printf ("Final settings content for PerSt file %s\n",
+            PERST_STRING_TO_TMPC(location()));
+    foreach(const QString & skey, backend_.allKeys()) {
+        printf ("   - %s = %s\n",
+                PERST_STRING_TO_TMPC(skey),
+                PERST_STRING_TO_TMPC(backend_.value(skey).toString()));
+    }
+    printf ("End of settings content for PerSt file %s\n", PERST_STRING_TO_TMPC(location()));
+#endif
+
     PERST_TRACE_EXIT;
 }
 /* ========================================================================= */
