@@ -236,7 +236,7 @@ bool PerStFactory::delProvider (const PERST_STRING &name)
  */
 bool PerStFactory::hasProvider (const PERST_STRING &name)
 {
-    bool result = false;
+    bool result/* = false*/;
     PERST_TRACE_ENTRY;
     autocreate();
 
@@ -262,13 +262,12 @@ bool PerStFactory::forEachProvider (
 
     int index = 0;
     if (singleton_->providers_.size () > 0)  {
-        PerStProvider * prov = NULL;
         std::list<PerStProvider*>::iterator i =
                 singleton_->providers_.begin();
         std::list<PerStProvider*>::iterator i_end =
                 singleton_->providers_.end();
         for(; i != i_end; ++i) {
-            prov = *i;
+            PerStProvider * prov = *i;
             result = kb (
                         index,
                         prov->name_,
@@ -318,6 +317,7 @@ bool PerStFactory::forEachProvider (
 
         break;
     }
+    Q_UNUSED(index);
 
     PERST_TRACE_EXIT;
     return result;

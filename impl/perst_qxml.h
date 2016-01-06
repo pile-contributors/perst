@@ -24,7 +24,7 @@ public:
 
 
     //! Default constructor.
-    PerStQXml (
+    explicit PerStQXml (
             const PERST_STRING & file);
 
     //! Destructor.

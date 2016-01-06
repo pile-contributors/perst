@@ -119,6 +119,7 @@ int PerStQSettings::beginReadArray (const PERST_STRING &name)
             b_res = b_res & setArrayIndex (0);
         }
     }
+    Q_UNUSED(b_res);
     return result;
 }
 /* ========================================================================= */

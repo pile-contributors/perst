@@ -29,7 +29,7 @@ PerSt::PerSt() :
     current_group_path_(),
     current_group_name_(),
     array_index_(-1),
-    array_indices_()
+    array_indexes_()
 {
     PERST_TRACE_ENTRY;
     PERST_TRACE_EXIT;
@@ -175,7 +175,7 @@ bool PerSt::setArrayIndexInternal (int value)
     }
     bool b_ret = beginGroupInternal (PERST_STRING::number (value));
     array_index_ = value;
-    array_indices_.back () = value;
+    array_indexes_.back () = value;
     return b_ret;
 }
 /* ========================================================================= */
@@ -191,7 +191,7 @@ bool PerSt::endArrayInternal (const PERST_STRING & name)
     if (array_index_ < 0) return false;
     bool b_ret = endGroupInternal (PERST_STRING::number (array_index_));
     array_index_ = -1;
-    array_indices_.back () = array_index_;
+    array_indexes_.back () = array_index_;
     b_ret = b_ret & endGroupInternal (name);
     return b_ret;
 }
@@ -208,7 +208,7 @@ bool PerSt::beginGroupInternal (const PERST_STRING & name)
     current_group_name_ = name;
     current_group_path_.push_back (name);
     array_index_ = -1;
-    array_indices_.push_back (array_index_);
+    array_indexes_.push_back (array_index_);
 
     return true;
 }
@@ -227,11 +227,11 @@ bool PerSt::endGroupInternal (const PERST_STRING &name)
         }
     }
 
-    array_indices_.pop_back();
-    if (array_indices_.empty ()) {
+    array_indexes_.pop_back();
+    if (array_indexes_.empty ()) {
         array_index_ = -1;
     } else {
-        array_index_ = array_indices_.back();
+        array_index_ = array_indexes_.back();
     }
 
     current_group_path_.pop_back();
@@ -258,5 +258,4 @@ bool PerSt::preSaveValue (const PERST_STRING & name)
 }
 /* ========================================================================= */
 
-
-
+void PerSt::anchorVtable() const {}

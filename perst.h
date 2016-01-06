@@ -29,7 +29,7 @@ public:
     //! Values that the kbForEach can return
     enum KbForEachResult {
         KBFER_CONTINUE, /**< Normal return, iteration continues. */
-        KBFER_BREAK, /**< Break iteration, exit immediatelly. */
+        KBFER_BREAK, /**< Break iteration, exit immediately. */
         KBFER_SKIP_KIDS /**< Same as continue but skip kids, if any. */
     };
 
@@ -41,11 +41,17 @@ public:
 
     //! Structure used for iterating the whole tree.
     struct KbData {
+        // cppcheck-suppress unusedStructMember
         kbForEach group_start_;
+        // cppcheck-suppress unusedStructMember
         kbForEach group_end_;
+        // cppcheck-suppress unusedStructMember
         kbForEach array_start_;
+        // cppcheck-suppress unusedStructMember
         kbForEach array_end_;
+        // cppcheck-suppress unusedStructMember
         kbForEach value_;
+        // cppcheck-suppress unusedStructMember
         void * opaque_;
     };
 
@@ -58,6 +64,16 @@ public:
 
     //! Destructor.
     virtual ~PerSt();
+
+    //! assignment operator
+    PerSt& operator=( const PerSt& other) {
+        location_ = other.location_;
+        current_group_path_ = other.current_group_path_;
+        current_group_name_ = other.current_group_name_;
+        array_index_ = other.array_index_;
+        array_indexes_ = other.array_indexes_;
+        return *this;
+    }
 
     //! Storage location
     virtual PERST_STRING location () {
@@ -122,7 +138,9 @@ private:
                                           last one is current group.*/
     PERST_STRING current_group_name_; /**< Current group's name. */
     int array_index_; /**< current index in the array, if any */
-    std::list<int> array_indices_; /**< stores nested indices */
+    std::list<int> array_indexes_; /**< stores nested indexes */
+
+public: virtual void anchorVtable() const;
 };
 
 #endif // GUARD_PERST_H_INCLUDE
