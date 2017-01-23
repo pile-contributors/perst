@@ -12,19 +12,19 @@
 
 #include <perst/perst-config.h>
 
-#if PERST_DEBUG
+#if 0
 #    define PERST_DEBUGM printf
 #else
 #    define PERST_DEBUGM black_hole
 #endif
 
-#if PERST_DEBUG
+#if 0
 #    define PERST_TRACE_ENTRY printf("PERST ENTRY %s in %s[%d]\n", __func__, __FILE__, __LINE__)
 #else
 #    define PERST_TRACE_ENTRY
 #endif
 
-#if PERST_DEBUG
+#if 0
 #    define PERST_TRACE_EXIT printf("PERST EXIT %s in %s[%d]\n", __func__, __FILE__, __LINE__)
 #else
 #    define PERST_TRACE_EXIT

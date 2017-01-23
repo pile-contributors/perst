@@ -22,6 +22,9 @@
 const PERST_STRING PerStQSettings::REGS = "registry";
 const PERST_STRING PerStQSettings::INI = "config";
 
+#undef PERST_DEBUG
+#define PERST_DEBUG 0
+
 /* ------------------------------------------------------------------------- */
 /**
  * Only the implementation is allowed to use the constructor.
