@@ -56,7 +56,7 @@ PerStQSettings::~PerStQSettings()
     PERST_TRACE_ENTRY;
 
     backend_.sync ();
-#ifdef PERST_DEBUG
+#if PERST_DEBUG
     printf ("Final settings content for PerSt file %s\n",
             PERST_STRING_TO_TMPC(location()));
     foreach(const QString & skey, backend_.allKeys()) {
