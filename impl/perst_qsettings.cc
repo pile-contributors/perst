@@ -33,7 +33,7 @@ PerStQSettings::PerStQSettings(const PERST_STRING & file, Mode md) :
     PERST_TRACE_ENTRY;
     setLocation (file);
 
-#ifdef PERST_DEBUG
+#if PERST_DEBUG
     printf ("Initial settings content for PerSt file %s\n", PERST_STRING_TO_TMPC(file));
     foreach(const QString & skey, backend_.allKeys()) {
         printf ("   - %s = %s\n",
